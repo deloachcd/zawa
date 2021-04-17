@@ -1,0 +1,9 @@
+[x] Flush
+[x] High card
+[x] Straight
+[x] 4 of a kind
+[x] 3 of a kind
+[x] 1 pair
+[x] 2 pair
+[x] Full house
+[x] Straight flush
