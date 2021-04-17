@@ -16,8 +16,11 @@ HIGHCARD_MASK = HAND_MASK
 
 
 def _resolve_sflush(card_hash):
+    rval = 0
     if (card_hash & STRAIGHT_MASK > 0) and (card_hash & FLUSH_MASK > 0):
-        return card_hash & HIGHCARD_MASK
+        rval = 1
+
+    return rval
 
 
 def _resolve_fhouse(card_hash):
