@@ -1,55 +1,61 @@
 from enum import Enum
 
+
 # String literal template constants for rendering the cards,
 # they accept string.format() calls directly
 HEARTS = r'''
 .-----------.
-| {}        |
-|   _   _   |
-|  / \_/ \  |
-|  \     /  |
-|   \   /   |
-|    \ /    |
-|     V     |
-|        {} |
+|{2} {0}        {3}|
+|{2}   _   _   {3}|
+|{2}  / \_/ \  {3}|
+|{2}  \     /  {3}|
+|{2}   \   /   {3}|
+|{2}    \ /    {3}|
+|{2}     V     {3}|
+|{2}        {1} {3}|
 '-----------'
 '''
 DIAMONDS = r'''
 .-----------.
-| {}        |
-|     .     |
-|    / \    |
-|   /   \   |
-|   \   /   |
-|    \ /    |
-|     V     |
-|        {} |
+|{2} {0}        {3}|
+|{2}     .     {3}|
+|{2}    / \    {3}|
+|{2}   /   \   {3}|
+|{2}   \   /   {3}|
+|{2}    \ /    {3}|
+|{2}     V     {3}|
+|{2}        {1} {3}|
 '-----------'
 '''
 CLUBS = r'''
 .-----------.
-| {}  _     |
-|    / \    |
-|  _ \_/ _  |
-| / \_|_/ \ |
-| \_/ | \_/ |
-|     |     |
-|    /_\    |
-|        {} |
+| {0}{2}  _     {3}|
+|{2}    / \    {3}|
+|{2}  _ \_/ _  {3}|
+|{2} / \_|_/ \ {3}|
+|{2} \_/ | \_/ {3}|
+|{2}     |     {3}|
+|{2}    /_\    {3}|
+|        {0} |
 '-----------'
 '''
 SPADES = r'''
 .-----------.
-| {}  _     |
-|    / \    |
-|   /   \   |
-|  /     \  |
-| /  _ _  \ |
-| \_/ | \_/ |
-|    /_\    |
-|        {} |
+| {0}{2}  _     {3}|
+|{2}    / \    {3}|
+|{2}   /   \   {3}|
+|{2}  /     \  {3}|
+|{2} /  _ _  \ {3}|
+|{2} \_/ | \_/ {3}|
+|{2}    /_\    {3}|
+|        {0} |
 '-----------'
 '''
+
+
+class TermColors:
+    NORMAL = '\033[m'
+    RED = '\033[31m'
 
 
 class Suite(Enum):
@@ -80,8 +86,11 @@ class Card:
     def render(self):
         value = (str(self.value) if self.value >= 2 and self.value <= 10
                  else self.RENDER_VALUES[self.value])
+        suite_color = (TermColors.RED if self.suite < 2
+                       else TermColors.NORMAL)
         return self.RENDER_SUITES[self.suite].format(
-            value.ljust(2), value.rjust(2)
+            value.ljust(2), value.rjust(2), suite_color,
+            TermColors.NORMAL
         )
 
     def __str__(self):
